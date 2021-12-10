@@ -1,0 +1,41 @@
+# This workflow listens for trigger-release events
+name: Repository Dispatch
+
+on:
+  # repository_dispatch:
+  #     types: [trigger-release]
+  push:
+    branches:
+      - "test-download-atrifact"
+
+jobs:
+  build-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo 'running release'
+
+      - run: ls -R
+
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with: 
+          workflow: build-artifacts.yml
+          workflow_conclusion: success
+          name: upcontracts.jar
+          path: java/build/libs/upcontracts.jar
+
+
+      - run: ls -R
+
+      # - name: Download last artifact
+      #   uses: blablacar/action-download-last-artifact@master
+      #   with:
+      #     name: upcontracts.jar
+      #     path: java/build/libs/upcontracts.jar 
+
+      # - name: Download last artifact
+      #   uses: blablacar/action-download-last-artifact@master
+      #   with:
+      #     name: UPContractsAbi.swift
+      #     path: ios/UPContractsAbi.swift 
