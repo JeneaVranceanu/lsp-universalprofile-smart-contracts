@@ -149,3 +149,6 @@ forge-cache/
 
 # generated gas benchmark
 benchmark.md
+
+# Other
+constants/__pycache__
