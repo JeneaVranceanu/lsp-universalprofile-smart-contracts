@@ -60,9 +60,10 @@ def createDeclaration(jsonConstant, parentJsonConstant, indentLevel):
 
 def declareJsonSchema(validName, jsonConstant, parentJsonConstant):
 	key = jsonConstant["key"]
-
-	if re.search(hexStringRegEx, key).group() != key:
-		raise Exception("ERC725Y_JSONSchema \"key\" must be a hex string without white space characters.\n{}".format(jsonConstant))
+	
+	regexResult = re.search(jsonSchemaKeyRegEx, key);
+	if regexResult == None or regexResult.group() != key:
+		raise Exception("ERC725Y_JSONSchema \"key\" {} must be a hex string without white space characters with optional types at the end of the key for keyType like Mapping.\n{}".format(key, jsonConstant))
 	
 	# Top level variable
 	insert = " "

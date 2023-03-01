@@ -2,6 +2,7 @@ import re
 
 unitNameRegEx = "[a-zA-Z_$][a-zA-Z_$0-9]*"
 hexStringRegEx = "^(0x)?[0-9a-fA-F]+$"
+jsonSchemaKeyRegEx = "^(0x)?[0-9a-fA-F]+(<((address|bytes(\d){0,2}|string|int(\d){1,3}|uint(\d){1,3}){1}(\|){0,1})+>)?$"
 
 def generateDocs(jsonConstant, singleLineDocWrappingSymbol="/// ", multilineDocWrappingSymbols=["/**", " ", " */"]):
 	""" 
