@@ -25,7 +25,7 @@ def createDeclaration(jsonConstant, parentJsonConstant, indentLevel):
 	"""Return declaration of an enum, class or immutable variable (let) in Swift."""
 	unitType = jsonConstant["type"].lower()
 	
-	validName = jsonConstant["name"].replace(":", "_")
+	validName = jsonConstant["name"].replace(":", "_").replace("<", "").replace("<", "").replace("|", "")
 	if validName.endswith("[]"):
 		validName = validName.replace("[]", "Array")
 
