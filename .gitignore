@@ -124,10 +124,10 @@ typechain
 deployments
 
 # JAVA
-java/github.properties
-java/.gradle
-java/.idea
-tmp/
+scripts/java/github.properties
+scripts/java/.gradle
+scripts/java/.idea
+android/
 
 .idea
 
@@ -149,6 +149,10 @@ forge-cache/
 
 # generated gas benchmark
 benchmark.md
+
+# Exclude build output folders
+/common
+/module
 
 # Other
 constants/__pycache__

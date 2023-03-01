@@ -10,7 +10,10 @@ import {LSP2Utils} from "../LSP2ERC725YJSONSchema/LSP2Utils.sol";
 
 // constants
 import {SETDATA_ARRAY_SELECTOR} from "@erc725/smart-contracts/contracts/constants.sol";
-import "../LSP6KeyManager/LSP6Constants.sol";
+import "./LSP6Constants.sol";
+
+// errors
+import {NotAuthorised} from "./LSP6Errors.sol";
 
 library LSP6Utils {
     using LSP2Utils for bytes12;
@@ -178,15 +181,15 @@ library LSP6Utils {
         keys = new bytes32[](3);
         values = new bytes[](3);
 
-        uint256 arrayLength = uint256(bytes32(_account.getData(_LSP6KEY_ADDRESSPERMISSIONS_ARRAY)));
-        uint256 newArrayLength = arrayLength + 1;
+        uint128 arrayLength = uint128(bytes16(_account.getData(_LSP6KEY_ADDRESSPERMISSIONS_ARRAY)));
+        uint128 newArrayLength = arrayLength + 1;
 
         keys[0] = _LSP6KEY_ADDRESSPERMISSIONS_ARRAY;
         values[0] = abi.encodePacked(newArrayLength);
 
         keys[1] = LSP2Utils.generateArrayElementKeyAtIndex(
             _LSP6KEY_ADDRESSPERMISSIONS_ARRAY,
-            uint128(arrayLength)
+            arrayLength
         );
         values[1] = abi.encodePacked(_address);
 
@@ -195,5 +198,32 @@ library LSP6Utils {
             bytes20(_address)
         );
         values[2] = abi.encodePacked(permissions);
+    }
+
+    /**
+     * @dev returns the name of the permission as a string
+     */
+    function getPermissionName(bytes32 permission)
+        internal
+        pure
+        returns (string memory errorMessage)
+    {
+        if (permission == _PERMISSION_CHANGEOWNER) return "TRANSFEROWNERSHIP";
+        if (permission == _PERMISSION_EDITPERMISSIONS) return "EDITPERMISSIONS";
+        if (permission == _PERMISSION_ADDCONTROLLER) return "ADDCONTROLLER";
+        if (permission == _PERMISSION_ADDEXTENSIONS) return "ADDEXTENSIONS";
+        if (permission == _PERMISSION_CHANGEEXTENSIONS) return "CHANGEEXTENSIONS";
+        if (permission == _PERMISSION_ADDUNIVERSALRECEIVERDELEGATE)
+            return "ADDUNIVERSALRECEIVERDELEGATE";
+        if (permission == _PERMISSION_CHANGEUNIVERSALRECEIVERDELEGATE)
+            return "CHANGEUNIVERSALRECEIVERDELEGATE";
+        if (permission == _PERMISSION_REENTRANCY) return "REENTRANCY";
+        if (permission == _PERMISSION_SETDATA) return "SETDATA";
+        if (permission == _PERMISSION_CALL) return "CALL";
+        if (permission == _PERMISSION_STATICCALL) return "STATICCALL";
+        if (permission == _PERMISSION_DELEGATECALL) return "DELEGATECALL";
+        if (permission == _PERMISSION_DEPLOY) return "DEPLOY";
+        if (permission == _PERMISSION_TRANSFERVALUE) return "TRANSFERVALUE";
+        if (permission == _PERMISSION_SIGN) return "SIGN";
     }
 }
