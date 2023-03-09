@@ -4,6 +4,12 @@
      "See [LSP-2-ERC725YJSONSchema](https://github.com/lukso-network/LIPs/blob/main/LSPs/LSP-2-ERC725YJSONSchema.md )."
    ],
    "content":[
+    {
+      "name":"LSP6_VERSION",
+      "type":"const",
+      "documentation":"Version relative to the LSP6KeyManager defined as a uint256 equal to `6`.",
+      "value":"6"
+    },
      {
        "name":"ERC1271_VALUES",
        "type":"enum",
